@@ -1,12 +1,15 @@
 -- MASA Module
 -- Maintainer: DArt
 
-function masa_register()
+Masa = {
+}
+
+function Masa:register()
   -- Com init
   _com.init()
 end
 
-function masa_unregister()
+function Masa:unregister()
   -- Com init
   _com.uninit()
 end

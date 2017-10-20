@@ -3,6 +3,7 @@
 -- Defines globals availables in all scripts
 -- Author: DArt, Ked
 --------------------------------------------------------
+env.info( '*** LOADING 3rd DCS Lua Framework *** ' )
 local _com = {} -- Main object
 _com.version = "0.0.1"
 
@@ -11,7 +12,7 @@ _com.version = "0.0.1"
 _com.has_init = false
 
 
-_com.init() = function() 
+_com.init = function() 
   if _com.has_init then 
     return 
   end
@@ -26,7 +27,7 @@ _com.init() = function()
   _com.has_init = true
 end
 
-_com.uninit() = function() 
+_com.uninit = function() 
   if _com.has_init then 
     _com.blue_players = {}
     _com.blue_clients = {}
@@ -35,15 +36,20 @@ _com.uninit() = function()
 
     _com.has_init = false
   end
+end
+  
 -- MASA Module
 -- Maintainer: DArt
 
-function masa_register()
+Masa = {
+}
+
+function Masa:register()
   -- Com init
   _com.init()
 end
 
-function masa_unregister()
+function Masa:unregister()
   -- Com init
   _com.uninit()
 end
