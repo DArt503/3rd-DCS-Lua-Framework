@@ -1,8 +1,9 @@
 --------------------------------------------------------
 -- Defines globals availables in all scripts
+-- Author: DArt, Ked
 --------------------------------------------------------
 local _com = {} -- Main object
-local _com.version = "0.0.1"
+_com.version = "0.0.1"
 
 -- Players
 _com.blue_players = SET_GROUP:New():FilterCoalitions("blue"):FilterCategories({"plane", "helicopter"}):FilterStart()
