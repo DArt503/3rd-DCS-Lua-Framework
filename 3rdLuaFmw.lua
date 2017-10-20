@@ -6,10 +6,44 @@
 local _com = {} -- Main object
 _com.version = "0.0.1"
 
--- Players
-_com.blue_players = SET_GROUP:New():FilterCoalitions("blue"):FilterCategories({"plane", "helicopter"}):FilterStart()
-_com.red_players = SET_GROUP:New():FilterCoalitions("red"):FilterCategories({"plane", "helicopter"}):FilterStart()
+-- Use to store initialistaion of the comm part
+-- All modules must called _com.init()
+_com.has_init = false
 
--- Clients
-_com.blue_clients = SET_CLIENT:New():FilterCoalitions("blue"):FilterStart()
-_com.red_clients = SET_CLIENT:New():FilterCoalitions("red"):FilterStart()
+
+_com.init() = function() 
+  if _com.has_init then 
+    return 
+  end
+  -- Players
+  _com.blue_players = SET_GROUP:New():FilterCoalitions("blue"):FilterCategories({"plane", "helicopter"}):FilterStart()
+  _com.red_players = SET_GROUP:New():FilterCoalitions("red"):FilterCategories({"plane", "helicopter"}):FilterStart()
+
+  -- Clients
+  _com.blue_clients = SET_CLIENT:New():FilterCoalitions("blue"):FilterStart()
+  _com.red_clients = SET_CLIENT:New():FilterCoalitions("red"):FilterStart()
+
+  _com.has_init = true
+end
+
+_com.uninit() = function() 
+  if _com.has_init then 
+    _com.blue_players = {}
+    _com.blue_clients = {}
+    _com.red_players = {}
+    _com.red_clients = {}
+
+    _com.has_init = false
+  end
+-- MASA Module
+-- Maintainer: DArt
+
+function masa_register()
+  -- Com init
+  _com.init()
+end
+
+function masa_unregister()
+  -- Com init
+  _com.uninit()
+end
