@@ -6,6 +6,7 @@ PolygonModule = {
 }
 
 function PolygonModule:register(groupName, zoneName)
+    _com:init()
     table.insert(PolygonModule.polygonZones, ZONE_POLYGON:New(zoneName, GROUP:FindByName(groupName))) 
 end
 
@@ -18,5 +19,6 @@ function PolygonModule:unregister(zoneName)
         end
         i = i + 1
     end
+    _com:uninit()
 end
 
