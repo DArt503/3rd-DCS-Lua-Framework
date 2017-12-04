@@ -19,6 +19,5 @@ function PolygonModule:unregister(zoneName)
         end
         i = i + 1
     end
-    _com:uninit()
 end
 
