@@ -52,10 +52,19 @@ function AirTrafficModule:addTrafic(groupName, departure, destination, coalition
    end
 
    newTraffic:Spawn(number)
-   table.insert(AirTrafficModule.traffic, newTraffic)     
-   _com:log( "Spawned the AirTraffic "..groupName )
+   --table.insert(AirTrafficModule.traffic, newTraffic)   
+   AirTrafficModule.traffic[groupName] = newTraffic
+   _com:log( "Spawned the AirTraffic "..groupName.." "..number.." times")
 end
 
-function AirTrafficModule:deleteTraffic(zoneName) 
-   
+--Can be used on another trigger than the addTrafic 
+function AirTrafficModule:spawn(groupName, number)
+    AirTrafficModule.traffic[groupName]:Spawn(number)
+   _com:log( "Spawned the AirTraffic "..groupName.." "..number.." times")
+end
+
+--Will despawn the groups attached to this entry
+function AirTrafficModule:deleteTraffic(groupName) 
+   AirTrafficModule.traffic[groupName]:_Despawn(groupName)
+   AirTrafficModule.traffic[groupName] = nil
 end

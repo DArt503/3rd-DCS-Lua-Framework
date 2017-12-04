@@ -95,28 +95,6 @@ function Masa:addItem(name)
       {}, 0, 1 )
       _com.log("register item " .. name)
   end
-end-- Polygon Zone Module
--- Ked
-
-PolygonModule = {
-    polygonZones = {}
-}
-
-function PolygonModule:register(groupName, zoneName)
-    _com:init()
-    table.insert(PolygonModule.polygonZones, ZONE_POLYGON:New(zoneName, GROUP:FindByName(groupName))) 
-end
-
-function PolygonModule:unregister(zoneName) 
-    local i = 0
-    for _,v in pairs(PolygonModule.polygonZones) do
-        if v:GetName() == zoneName then
-            table.remove(PolygonModule.polygonZones, i)
-            do return end
-        end
-        i = i + 1
-    end
-    _com:uninit()
 end
 
 -- Air Traffic Module
@@ -173,10 +151,19 @@ function AirTrafficModule:addTrafic(groupName, departure, destination, coalition
    end
 
    newTraffic:Spawn(number)
-   table.insert(AirTrafficModule.traffic, newTraffic)     
-   _com:log( "Spawned the AirTraffic "..groupName )
+   --table.insert(AirTrafficModule.traffic, newTraffic)   
+   AirTrafficModule.traffic[groupName] = newTraffic
+   _com:log( "Spawned the AirTraffic "..groupName.." "..number.." times")
 end
 
-function AirTrafficModule:deleteTraffic(zoneName) 
-   
+--Can be used on another trigger than the addTrafic 
+function AirTrafficModule:spawn(groupName, number)
+    AirTrafficModule.traffic[groupName]:Spawn(number)
+   _com:log( "Spawned the AirTraffic "..groupName.." "..number.." times")
+end
+
+--Will despawn the groups attached to this entry
+function AirTrafficModule:deleteTraffic(groupName) 
+   AirTrafficModule.traffic[groupName]:_Despawn(groupName)
+   AirTrafficModule.traffic[groupName] = nil
 end
